@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mathis Sananes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portfolio de Mathis Sananes. Showreel et sélection de travaux.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0b0c;
+      --bg-elev: #131315;
+      --text: #f2efe9;
+      --muted: #8a867e;
+      --line: rgba(242,239,233,0.08);
+      --accent: #d9b478;
+      --max: 1180px;
+      --ease: cubic-bezier(.2,.7,.2,1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(217,180,120,0.08), transparent 60%),
+        radial-gradient(900px 500px at -10% 110%, rgba(217,180,120,0.05), transparent 60%);
+      z-index: 0;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(11,11,12,0.72);
+      backdrop-filter: saturate(140%) blur(14px);
+      -webkit-backdrop-filter: saturate(140%) blur(14px);
+      z-index: 50;
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.25rem;
+    }
+    .brand { display: inline-block; line-height: 1; }
+    .brand-name {
+      font-family: "Instrument Serif", serif;
+      font-weight: 400;
+      letter-spacing: .01em;
+      font-size: 1.35rem;
+    }
+    .subtitle {
+      margin-top: 4px;
+      font-size: 0.58rem;
+      color: var(--muted);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    nav a {
+      position: relative;
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 1.6rem;
+      font-size: .82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: color .3s var(--ease);
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0;
+      bottom: -6px;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform .5s var(--ease);
+    }
+    nav a:hover { color: var(--text); }
+    nav a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 4rem 1.25rem 5rem;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      color: var(--muted);
+      font-size: .72rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .hero-eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: var(--accent);
+      display: inline-block;
+    }
+    .hero-title {
+      font-family: "Instrument Serif", serif;
+      font-weight: 400;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      line-height: 1.05;
+      letter-spacing: -.01em;
+      margin: 0 0 2.5rem;
+      max-width: 900px;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      border-radius: .75rem;
+      border: 1px solid var(--line);
+      background: #000;
+      box-shadow: 0 40px 80px -30px rgba(0,0,0,0.7), 0 0 0 1px rgba(217,180,120,0.05);
+      transition: transform .8s var(--ease), box-shadow .8s var(--ease);
+    }
+    .video-wrapper:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 50px 100px -30px rgba(0,0,0,0.85), 0 0 0 1px rgba(217,180,120,0.15);
+    }
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      margin-top: 5rem;
+      padding: 2rem 1rem 3rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border-top: 1px solid var(--line);
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 1s var(--ease), transform 1s var(--ease);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal.d1 { transition-delay: .1s; }
+    .reveal.d2 { transition-delay: .25s; }
+    .reveal.d3 { transition-delay: .4s; }
+
+    @media (max-width: 640px) {
+      nav a { margin-left: .9rem; font-size: .72rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="brand-name">Mathis Sananes</div>
+        <div class="subtitle">réalisateur · scénariste · monteur</div>
+      </div>
+      <nav>
+        <a href="index.html">Accueil</a>
+        <a href="videos.html">Vidéos</a>
+        <a href="autres.html">Autres</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero-eyebrow reveal">Showreel — 2025</div>
+    <h1 class="hero-title reveal d1">Images qui <em>respirent</em>, récits qui restent.</h1>
+
+    <div class="video-wrapper reveal d2">
+      <video controls autoplay muted loop playsinline>
+        <source src="showreel.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la lecture vidéo.
+      </video>
+    </div>
+  </main>
+
+  <footer>© 2025 Mathis Sananes — Tous droits réservés</footer>
+
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
