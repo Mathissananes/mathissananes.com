@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Mathis Sananes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portfolio de Mathis Sananes. Showreel et sélection de travaux.">
+<style>
+:root { --bg:#fff; --text:#000; --muted:#6e6e73; --max:1280px; --max-contact:720px; }
+* { box-sizing: border-box; }
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body {
+  margin:0; font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--text); line-height:1.5; overflow-x:hidden;
+}
+
+header {
+  position:fixed; top:0; left:0; right:0;
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  z-index:100; border-bottom:1px solid rgba(0,0,0,0.08);
+}
+.nav { max-width:var(--max); margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:.85rem 1.25rem; }
+.brand { display:inline-block; line-height:1; text-decoration:none; color:inherit; cursor:pointer; }
+.brand-name { font-weight:600; letter-spacing:-0.015em; font-size:1.05rem; }
+.subtitle { margin-top:3px; font-size:0.55rem; color:var(--muted); letter-spacing:0.04em; line-height:1; white-space:nowrap; }
+nav a { color:var(--text); text-decoration:none; margin-left:1.75rem; font-size:.85rem; opacity:.8; transition:opacity .2s ease; letter-spacing:-0.01em; cursor:pointer; }
+nav a:hover { opacity:1; }
+
+.hero { position:relative; width:100vw; height:100vh; overflow:hidden; background:#000; }
+.hero video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
+.hero::after { content:""; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.35) 100%); pointer-events:none; }
+.scroll-hint {
+  position:absolute; bottom:2.2rem; left:50%; transform:translateX(-50%);
+  color:#fff; font-size:.7rem; letter-spacing:.22em; text-transform:uppercase;
+  opacity:.85; animation:floaty 2.4s ease-in-out infinite; z-index:2;
+}
+@keyframes floaty {
+  0%,100% { transform:translate(-50%,0); opacity:.85; }
+  50% { transform:translate(-50%,8px); opacity:.5; }
+}
+
+main { max-width:var(--max); margin:0 auto; padding:6rem 1.25rem 4rem; }
+.section-heading { font-size:3rem; font-weight:600; letter-spacing:-0.035em; margin:3rem 0 3.5rem; line-height:1.02; transform-origin:center center; }
+
+.project {
+  display:flex; flex-wrap:wrap; gap:3.5rem; align-items:flex-start;
+  padding-bottom:6rem; margin-bottom:6rem;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+  scroll-margin-top:80px;
+}
+.project-poster {
+  flex:0 0 435px; max-width:435px; border-radius:0;
+  background:#f5f5f7; object-fit:cover; align-self:flex-start;
+  box-shadow:0 20px 50px -20px rgba(0,0,0,0.25), 0 2px 8px rgba(0,0,0,0.06);
+  transition:transform .9s cubic-bezier(.2,.7,.2,1), box-shadow .6s ease, opacity .9s cubic-bezier(.2,.7,.2,1);
+}
+.project-poster:hover { transform:translateY(-4px) scale(1.01); box-shadow:0 30px 70px -20px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.08); }
+.project-content { flex:1 1 600px; display:grid; grid-template-rows:auto auto auto; row-gap:clamp(1.125rem, 1.9vw, 1.625rem); align-content:start; }
+.project-title { font-size:clamp(2.8rem,4.2vw,3.6rem); font-weight:600; text-transform:uppercase; letter-spacing:-0.03em; margin:0; line-height:1.05; transform-origin:left center; }
+.project-title span.year { font-weight:400; color:#86868b; font-size:1.2rem; letter-spacing:-0.01em; }
+.project-type { font-size:.78rem; text-transform:uppercase; letter-spacing:.18em; color:var(--muted); margin:0; display:flex; flex-wrap:wrap; gap:.8rem; align-items:center; position:relative; z-index:2; min-height:2.1rem; }
+.play-btn { background:#fff; color:#000; border:1px solid #000; border-radius:9999px; padding:.38rem .95rem .4rem; font-size:.65rem; text-transform:uppercase; letter-spacing:.1em; cursor:pointer; font-family:inherit; transition:transform .25s ease, background .4s ease, color .4s ease, border-color .4s ease; }
+.play-btn:hover { transform:scale(1.05); background:#000; color:#fff; border-color:#000; }
+
+.screenshots-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; align-content:start; position:relative; z-index:1; clear:both; margin-top:0; }
+.screenshots-grid.two-col { grid-template-columns:repeat(2,1fr); gap:1.2rem; }
+.screenshots-grid img { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:0; background:#f5f5f7; cursor:zoom-in; transition:transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+.screenshots-grid img:hover { transform:scale(1.03); box-shadow:0 15px 30px -10px rgba(0,0,0,0.25); }
+
+.photos-grid, .makingof-grid { display:grid; gap:1rem; grid-template-columns:repeat(4,1fr); margin-bottom:6rem; }
+.photos-grid img, .makingof-grid img { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:0; background:#f5f5f7; cursor:zoom-in; transition:transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+.photos-grid img:hover, .makingof-grid img:hover { transform:scale(1.03); box-shadow:0 15px 30px -10px rgba(0,0,0,0.25); }
+
+.contact-section { max-width:var(--max-contact); margin:4rem auto 0; padding:4rem 1.25rem 2rem; text-align:center; scroll-margin-top:80px; }
+.contact-title { font-size:3.2rem; font-weight:600; letter-spacing:-0.035em; margin:0 0 3.5rem; line-height:1.02; transform-origin:center center; }
+.contact-grid { display:grid; grid-template-columns:1fr; gap:1.4rem; }
+.contact-card { border:1px solid rgba(0,0,0,0.08); border-radius:18px; padding:2rem 1.8rem; text-align:left; background:#fbfbfd; transition:transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease, background .3s ease; }
+.contact-card:hover { transform:translateY(-4px); box-shadow:0 25px 60px -20px rgba(0,0,0,0.2); background:#fff; }
+.contact-label { font-size:.72rem; text-transform:uppercase; letter-spacing:.2em; color:var(--muted); margin-bottom:.8rem; display:flex; align-items:center; gap:.5rem; }
+.contact-icon { width:18px; height:18px; opacity:.75; }
+.contact-name { font-size:1.35rem; font-weight:500; letter-spacing:-0.02em; margin-bottom:.2rem; word-break:break-all; }
+.contact-actions { margin-top:1.3rem; }
+.btn-link { display:inline-block; padding:.55rem 1.2rem; border-radius:9999px; background:#000; border:1px solid #000; font-size:.8rem; letter-spacing:-0.005em; text-decoration:none; color:#fff; transition:transform .25s ease, background .25s ease; }
+.btn-link:hover { transform:scale(1.04); background:#1d1d1f; }
+
+/* Overlays */
+.image-overlay, .video-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  display:none; justify-content:center; align-items:center;
+  z-index:999; padding:1.5rem; opacity:0; transition:opacity .3s ease;
+}
+.image-overlay.active, .video-overlay.active { display:flex; opacity:1; }
+.image-overlay img { max-width:min(92vw,1200px); max-height:92vh; border-radius:12px; box-shadow:0 30px 80px rgba(0,0,0,0.5); transform:scale(.96); transition:transform .35s cubic-bezier(.2,.7,.2,1); }
+.image-overlay.active img { transform:scale(1); }
+.video-overlay iframe { width:min(92vw,1200px); height:min(51.75vw,72vh); border:0; border-radius:12px; background:#000; box-shadow:0 30px 80px rgba(0,0,0,0.5); }
+.overlay-close { position:fixed; top:1.5rem; right:1.5rem; background:rgba(255,255,255,0.15); backdrop-filter:blur(10px); color:#fff; border:none; border-radius:9999px; width:40px; height:40px; cursor:pointer; font-size:1.3rem; line-height:1; transition:background .2s ease, transform .2s ease; z-index:1000; }
+.overlay-close:hover { background:rgba(255,255,255,0.28); transform:scale(1.08); }
+
+footer { padding:2.5rem 1rem 3rem; text-align:center; color:var(--muted); font-size:.78rem; letter-spacing:-0.01em; border-top:1px solid rgba(0,0,0,0.08); background:#fbfbfd; }
+
+@media (max-width:1100px) {
+  .project { flex-direction:column; align-items:center; gap:2.5rem; }
+  .project-poster { max-width:100%; width:100%; }
+  .project-content { width:100%; }
+  .screenshots-grid { grid-template-columns:repeat(2,1fr); }
+  .video-overlay iframe { width:95vw; height:53.43vw; }
+  .section-heading { font-size:2rem; }
+  .project-title { font-size:clamp(2.35rem,5.5vw,3rem); }
+  .project-content { row-gap:1rem; }
+  .photos-grid, .makingof-grid { grid-template-columns:repeat(2,1fr); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .reveal, .reveal-stagger > *, .scroll-scale { opacity:1 !important; transform:none !important; transition:none !important; }
+}
+
+
+
+/* Original project presentation with alternate sides and subtle fades. */
+:root { --motion-ease:cubic-bezier(.22,1,.36,1); }
+html { scroll-padding-top:90px; scrollbar-gutter:stable; }
+#top { scroll-margin-top:0; }
+.hero { width:100%; }
+.hero-pause { position:absolute; right:1.5rem; bottom:1.75rem; z-index:4; color:#fff; background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.6); border-radius:999px; padding:.65rem 1rem; font:inherit; font-size:.68rem; letter-spacing:.05em; cursor:pointer; }
+.hero-pause[hidden] { display:none; }
+.hero.is-paused .scroll-hint { animation-play-state:paused; }
+.scroll-hint { text-decoration:none; display:flex; gap:.65rem; align-items:center; }
+a:focus-visible, button:focus-visible { outline:2px solid currentColor; outline-offset:5px; }
+nav a[aria-current="location"] { opacity:1; }
+.poster-frame { width:435px; max-width:100%; }
+.poster-frame .project-poster { display:block; width:100%; max-width:100%; height:auto; }
+.project-poster:hover { transform:none; }
+.media-frame { display:block; width:100%; min-width:0; padding:0; border:0; background:#f5f5f7; aspect-ratio:16/9; overflow:hidden; cursor:zoom-in; }
+.media-frame img { display:block; width:100%; height:100%; transform:none; transition:transform .4s ease; }
+.quiet-reveal { opacity:1; }
+.quiet-reveal.is-waiting { opacity:0; }
+.quiet-reveal.is-shown { animation:quiet-fade .55s ease both; }
+@keyframes quiet-fade { from { opacity:0; } to { opacity:1; } }
+@media (min-width:1101px) {
+  .project { display:grid; grid-template-columns:435px minmax(0,1fr); }
+  .project-content { min-width:0; }
+  .project--reverse { grid-template-columns:minmax(0,1fr) 435px; }
+  .project--reverse .poster-frame { grid-column:2; grid-row:1; }
+  .project--reverse .project-content { grid-column:1; grid-row:1; }
+}
+@media (hover:hover) and (pointer:fine) {
+  .media-frame:hover img { transform:scale(1.02); box-shadow:none; }
+}
+@media (hover:none) {
+  .media-frame img:hover, .project-poster:hover { transform:none; }
+}
+@media (max-width:1100px) {
+  .poster-frame { width:100%; }
+  .project-content { flex:none; }
+}
+@media (max-width:768px) {
+  .nav { gap:.8rem; padding:.85rem 1rem; }
+  .brand-name { font-size:.9rem; }
+  .subtitle { font-size:.5rem; }
+  nav { display:flex; gap:.8rem; }
+  nav a { margin-left:0; font-size:.72rem; }
+}
+@media (max-width:420px) {
+  .nav { flex-wrap:wrap; row-gap:.7rem; }
+  nav { width:100%; justify-content:space-between; }
+  html { scroll-padding-top:110px; }
+  .hero-pause { right:1rem; bottom:1.4rem; font-size:.6rem; }
+  .scroll-hint { bottom:1.8rem; left:1rem; transform:none; animation:none; }
+  .project, .contact-section { scroll-margin-top:110px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  *, *::before, *::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+  .quiet-reveal, .quiet-reveal.is-waiting { opacity:1; }
+  .media-frame img { transform:none !important; }
+}
+:root { --hero-progress:0; }
+.hero { height:150svh; overflow:visible; background:#000; }
+.hero::after { display:none; }
+.hero-scene { position:sticky; top:0; height:100svh; overflow:hidden; background:#000; }
+.hero-scene::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg,rgba(0,0,0,.24),rgba(0,0,0,.08) 48%,rgba(0,0,0,.38)); }
+.hero video { transform:scale(calc(1.08 - var(--hero-progress) * .08)); }
+.hero-name { position:absolute; left:clamp(1.25rem,4vw,4rem); top:50%; transform:translateY(calc(-50% - var(--hero-progress) * 60px)); z-index:2; color:#fff; opacity:calc(1 - var(--hero-progress)); pointer-events:none; }
+.hero-word-mask { display:block; overflow:hidden; padding:.06em 0; margin:-.06em 0; font-size:clamp(4.2rem,13vw,11.5rem); line-height:.94; font-weight:550; letter-spacing:-.03em; }
+.hero-word-mask:first-child { transform:translateX(calc(var(--hero-progress) * -22vw)); }
+.hero-word-mask:nth-child(2) { transform:translateX(calc(var(--hero-progress) * 22vw)); }
+.hero-word-mask:nth-child(2) .hero-word { color:#fff; -webkit-text-stroke:0; }
+.hero-word { display:block; animation:hero-word-enter 1.45s var(--motion-ease) backwards; animation-delay:.15s; }
+.hero-word-mask:nth-child(2) .hero-word { animation-delay:.32s; }
+.hero-name p { font-size:clamp(.65rem,1vw,.85rem); letter-spacing:.17em; text-transform:uppercase; margin:1.5rem 0 0 .25rem; animation:opening-copy 1s ease .6s backwards; }
+@keyframes hero-word-enter { from { transform:translateY(112%); } to { transform:translateY(0); } }
+@keyframes opening-copy { from { opacity:0; transform:translateY(15px); } to { opacity:1; transform:none; } }
+.scroll-hint, .hero-pause { z-index:4; }
+
+.hero-word { text-shadow:0 2px 18px rgba(0,0,0,.18); }
+@media (max-width:768px) {
+  .hero { height:135svh; }
+  .hero-word-mask { font-size:clamp(4rem,14.5vw,7rem); }
+  .hero-word-mask:first-child { transform:translateX(calc(var(--hero-progress) * -12vw)); }
+  .hero-word-mask:nth-child(2) { transform:translateX(calc(var(--hero-progress) * 12vw)); }
+  .hero-name p { max-width:280px; line-height:1.7; letter-spacing:.12em; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .hero { height:100svh; }
+  .hero-name { opacity:1; transform:translateY(-50%); }
+  .hero-word-mask { transform:none !important; }
+}
+
+/* A single row of posters links directly to the existing projects. */
+.film-index { position:relative; isolation:isolate; margin:0 -.75rem 4.5rem; padding:clamp(1.25rem,2.2vw,2rem); background:#dedede; scroll-margin-top:90px; }
+.film-index::before { content:""; position:absolute; top:0; bottom:0; left:50%; width:100vw; transform:translateX(-50%); background:#dedede; z-index:-1; pointer-events:none; }
+.film-posters { display:flex; flex-wrap:nowrap; gap:clamp(.75rem,1.6vw,1.5rem); padding:.35rem; }
+.film-poster { display:block; flex:1 1 0; min-width:0; color:inherit; text-decoration:none; }
+.film-poster img { display:block; width:100%; height:auto; aspect-ratio:2/3; object-fit:cover; object-position:center; transition:opacity .25s ease; }
+@media (hover:hover) and (pointer:fine) {
+  .film-poster:hover img { opacity:.85; }
+}
+@media (max-width:900px) {
+  .film-posters { overflow-x:auto; gap:1rem; padding-bottom:1rem; overscroll-behavior-x:contain; }
+  .film-poster { flex:0 0 clamp(120px,22vw,180px); }
+  .film-index { margin-bottom:3.5rem; }
+}
+@media (max-width:420px) {
+  .film-index { scroll-margin-top:110px; }
+}
+
+
+/* A visible slide, started only when each poster image is ready. */
+.film-posters.is-waiting .film-poster,
+.film-posters.is-shown .film-poster { opacity:0; transform:translateX(-60px); }
+.film-posters.is-shown .film-poster.is-entering { animation:poster-row-enter .95s cubic-bezier(.22,1,.36,1) calc(var(--poster-order) * 110ms) both; }
+@keyframes poster-row-enter {
+  from { opacity:0; transform:translateX(-60px); }
+  to { opacity:1; transform:translateX(0); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .film-posters.is-waiting .film-poster,
+  .film-posters.is-shown .film-poster,
+  .film-posters.is-shown .film-poster.is-entering { opacity:1; transform:none; animation:none; }
+}
+
+</style>
+<noscript><style>.hero video { pointer-events:auto; transform:none; }</style></noscript>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#top" class="brand" data-scroll="top">
+      <div class="brand-name">Mathis Sananes</div>
+      <div class="subtitle">réalisateur · scénariste · monteur</div>
+    </a>
+    <nav>
+      <a href="#top" data-scroll="top">Accueil</a>
+      <a href="#films" data-scroll="films">Vidéos</a>
+      <a href="#le-roi-se-meurt" data-scroll="le-roi-se-meurt">Autres</a>
+      <a href="#contact" data-scroll="contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-scene">
+  <video controls muted loop playsinline preload="metadata" disablepictureinpicture>
+    <source src="showreel.mp4" type="video/mp4">
+  </video>
+  <a class="scroll-hint" href="#films" data-scroll="films">Scroll <span aria-hidden="true">↓</span></a>
+  <button class="hero-pause" id="heroPause" type="button" hidden>Lire le showreel</button>
+<div class="hero-name" aria-hidden="true">
+      <span class="hero-word-mask"><span class="hero-word">Mathis</span></span>
+      <span class="hero-word-mask"><span class="hero-word">Sananes</span></span>
+      <p>réalisateur · scénariste · monteur</p>
+    </div>
+  </div>
+</section>
+
+<main>
+  <!-- ===== VIDÉOS ===== -->
+  <section class="film-index" id="films" aria-label="Sélection de projets">
+    <div class="film-posters">
+    <a class="film-poster" href="#vision-d-hiver" data-scroll="vision-d-hiver" aria-label="Voir le projet Vision d&#x27;Hiver (2026)">
+      <img loading="lazy" decoding="async" width="975" height="1350" src="vision-d-hiver-affiche.jpg" alt="Affiche du court métrage Vision d'Hiver">
+    </a>
+    <a class="film-poster" href="#vieux-jeu" data-scroll="vieux-jeu" aria-label="Voir le projet Vieux Jeu (2025)">
+      <img loading="lazy" decoding="async" width="3508" height="4961" src="vieux-jeu-affiche.jpg" alt="Affiche du court métrage Vieux Jeu">
+    </a>
+    <a class="film-poster" href="#laisse-couler" data-scroll="laisse-couler" aria-label="Voir le projet Laisse Couler (2025)">
+      <img loading="lazy" decoding="async" width="958" height="1314" src="laisse-couler-affiche.jpg" alt="Affiche du clip Laisse Couler">
+    </a>
+    <a class="film-poster" href="#she-cut-a-rug" data-scroll="she-cut-a-rug" aria-label="Voir le projet She Cut a Rug (2025)">
+      <img loading="lazy" decoding="async" width="1076" height="1568" src="she-cut-a-rug-affiche.jpg" alt="Affiche du clip She Cut a Rug">
+    </a>
+    <a class="film-poster" href="#0-25mg" data-scroll="0-25mg" aria-label="Voir le projet 0,25mg (2025)">
+      <img loading="lazy" decoding="async" width="1080" height="1350" src="0-25mg-affiche.jpg" alt="Affiche du court métrage 0,25mg">
+    </a>
+    <a class="film-poster" href="#about-emma" data-scroll="about-emma" aria-label="Voir le projet About Emma (2019)">
+      <img loading="lazy" decoding="async" width="2480" height="3508" src="about-emma-affiche.jpg" alt="Affiche du court métrage About Emma">
+    </a>
+    </div>
+  </section>
+
+  <article class="project" id="vision-d-hiver">
+    <div class="poster-frame"><img loading="lazy" decoding="async" width="975" height="1350" src="vision-d-hiver-affiche.jpg" alt="Affiche du court métrage Vision d'Hiver" class="project-poster"></div>
+    <div class="project-content">
+      <h2 class="project-title">Vision d'Hiver <span class="year">(2026)</span></h2>
+      <div class="project-type">court métrage</div>
+      <div class="screenshots-grid">
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vision-d-hiver-shot-1.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vision-d-hiver-shot-2.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vision-d-hiver-shot-3.jpg" alt=""></button>
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vision-d-hiver-shot-4.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vision-d-hiver-shot-5.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vision-d-hiver-shot-6.jpg" alt=""></button>
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vision-d-hiver-shot-7.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vision-d-hiver-shot-8.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vision-d-hiver-shot-9.jpg" alt=""></button>
+      </div>
+    </div>
+  </article>
+
+  <article class="project project--reverse" id="vieux-jeu">
+    <div class="poster-frame"><img loading="lazy" decoding="async" width="3508" height="4961" src="vieux-jeu-affiche.jpg" alt="Affiche du court métrage Vieux Jeu" class="project-poster"></div>
+    <div class="project-content">
+      <h2 class="project-title">Vieux Jeu <span class="year">(2025)</span></h2>
+      <div class="project-type">court métrage</div>
+      <div class="screenshots-grid">
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vieux-jeu-shot-1.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vieux-jeu-shot-2.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vieux-jeu-shot-3.jpg" alt=""></button>
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vieux-jeu-shot-4.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vieux-jeu-shot-5.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vieux-jeu-shot-6.jpg" alt=""></button>
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vieux-jeu-shot-7.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vieux-jeu-shot-8.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="vieux-jeu-shot-9.jpg" alt=""></button>
+      </div>
+    </div>
+  </article>
+
+  <article class="project" id="laisse-couler">
+    <div class="poster-frame"><img loading="lazy" decoding="async" width="958" height="1314" src="laisse-couler-affiche.jpg" alt="Affiche du clip Laisse Couler" class="project-poster"></div>
+    <div class="project-content">
+      <h2 class="project-title">Laisse Couler <span class="year">(2025)</span></h2>
+      <div class="project-type">
+        clip
+        <button class="play-btn" data-video="https://www.youtube.com/embed/PFfzyw06-oM">Play</button>
+      </div>
+      <div class="screenshots-grid">
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="laisse-couler-shot-1.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="laisse-couler-shot-2.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="laisse-couler-shot-3.jpg" alt=""></button>
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="laisse-couler-shot-4.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="laisse-couler-shot-5.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="laisse-couler-shot-6.jpg" alt=""></button>
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="laisse-couler-shot-7.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="laisse-couler-shot-8.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="laisse-couler-shot-9.jpg" alt=""></button>
+      </div>
+    </div>
+  </article>
+
+  <article class="project project--reverse" id="she-cut-a-rug">
+    <div class="poster-frame"><img loading="lazy" decoding="async" width="1076" height="1568" src="she-cut-a-rug-affiche.jpg" alt="Affiche du clip She Cut a Rug" class="project-poster"></div>
+    <div class="project-content">
+      <h2 class="project-title">She Cut a Rug <span class="year">(2025)</span></h2>
+      <div class="project-type">
+        clip
+        <button class="play-btn" data-video="https://www.youtube.com/embed/pcbTMebtJgI">Play</button>
+      </div>
+      <div class="screenshots-grid">
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="she-cut-a-rug-shot-1.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="she-cut-a-rug-shot-2.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="she-cut-a-rug-shot-3.jpg" alt=""></button>
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="she-cut-a-rug-shot-4.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="she-cut-a-rug-shot-5.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="she-cut-a-rug-shot-6.jpg" alt=""></button>
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="she-cut-a-rug-shot-7.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="she-cut-a-rug-shot-8.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="she-cut-a-rug-shot-9.jpg" alt=""></button>
+      </div>
+    </div>
+  </article>
+
+  <article class="project" id="0-25mg">
+    <div class="poster-frame"><img loading="lazy" decoding="async" width="1080" height="1350" src="0-25mg-affiche.jpg" alt="Affiche du court métrage 0,25mg" class="project-poster"></div>
+    <div class="project-content">
+      <h2 class="project-title">0,25mg <span class="year">(2025)</span></h2>
+      <div class="project-type">court métrage</div>
+      <div class="screenshots-grid">
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="0-25mg-shot-1.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="0-25mg-shot-2.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="0-25mg-shot-3.jpg" alt=""></button>
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="0-25mg-shot-4.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="0-25mg-shot-5.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="0-25mg-shot-6.jpg" alt=""></button>
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="0-25mg-shot-7.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="0-25mg-shot-8.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="0-25mg-shot-9.jpg" alt=""></button>
+      </div>
+    </div>
+  </article>
+
+  <article class="project project--reverse" id="about-emma">
+    <div class="poster-frame"><img loading="lazy" decoding="async" width="2480" height="3508" src="about-emma-affiche.jpg" alt="Affiche du court métrage About Emma" class="project-poster"></div>
+    <div class="project-content">
+      <h2 class="project-title">About Emma <span class="year">(2019)</span></h2>
+      <div class="project-type">court métrage</div>
+      <div class="screenshots-grid">
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="about-emma-shot-1.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="about-emma-shot-2.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="about-emma-shot-3.jpg" alt=""></button>
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="about-emma-shot-4.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="about-emma-shot-5.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="about-emma-shot-6.jpg" alt=""></button>
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="about-emma-shot-7.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="about-emma-shot-8.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="about-emma-shot-9.jpg" alt=""></button>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===== AUTRES ===== -->
+  <article class="project" id="le-roi-se-meurt">
+    <div class="poster-frame"><img loading="lazy" decoding="async" width="3508" height="4961" src="le-roi-se-meurt-affiche.jpg" alt="Affiche de Le Roi se meurt" class="project-poster"></div>
+    <div class="project-content">
+      <h2 class="project-title">Le Roi se meurt <span class="year">(2023)</span></h2>
+      <div class="project-type">pièce de théâtre</div>
+      <div class="screenshots-grid two-col">
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="le-roi-se-meurt-shot-1.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="le-roi-se-meurt-shot-2.jpg" alt=""></button>
+        <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="le-roi-se-meurt-shot-3.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="le-roi-se-meurt-shot-4.jpg" alt=""></button>
+      </div>
+    </div>
+  </article>
+
+  <section>
+    <h2 class="section-heading">Photographies</h2>
+    <div class="photos-grid">
+      <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="photo-1.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="photo-2.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="photo-3.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="photo-4.jpg" alt=""></button>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-heading">Making Of</h2>
+    <div class="makingof-grid">
+      <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="makingof-9.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="makingof-10.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="makingof-11.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="makingof-12.jpg" alt=""></button>
+      <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="makingof-1.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="makingof-2.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="makingof-3.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="makingof-4.jpg" alt=""></button>
+      <button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="makingof-5.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="makingof-6.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="makingof-7.jpg" alt=""></button><button class="media-frame" type="button" aria-label="Agrandir l’image"><img loading="lazy" decoding="async" src="makingof-8.jpg" alt=""></button>
+    </div>
+  </section>
+</main>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact-section" id="contact">
+  <h2 class="contact-title">Contact</h2>
+
+  <div class="contact-grid">
+    <section class="contact-card">
+      <div class="contact-label">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+          <circle cx="12" cy="12" r="4"></circle>
+          <circle cx="17.5" cy="6.5" r="1.2"></circle>
+        </svg>
+        Instagram
+      </div>
+      <div class="contact-name">@mathissananes</div>
+      <div class="contact-actions">
+        <a class="btn-link" href="https://www.instagram.com/mathissananes/" target="_blank" rel="noopener noreferrer">Ouvrir Instagram</a>
+      </div>
+    </section>
+
+    <section class="contact-card">
+      <div class="contact-label">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 4h16v16H4z"></path>
+          <path d="m4 4 8 8 8-8"></path>
+        </svg>
+        E-mail
+      </div>
+      <div class="contact-name">mathis.s@live.fr</div>
+      <div class="contact-actions">
+        <a class="btn-link" href="mailto:mathis.s@live.fr">Écrire un mail</a>
+      </div>
+    </section>
+  </div>
+</section>
+
+<div class="image-overlay" id="imageOverlay">
+  <button class="overlay-close" id="overlayCloseImg" aria-label="Fermer">×</button>
+  <img id="overlayImg" src="" alt="capture agrandie">
+</div>
+
+<div class="video-overlay" id="videoOverlay">
+  <button class="overlay-close" id="overlayCloseVideo" aria-label="Fermer">×</button>
+  <iframe id="videoFrame" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+<footer>© 2025 Mathis Sananes. Tous droits réservés.</footer>
+
+<script>
+
+(() => {
+  'use strict';
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const hero = document.querySelector('.hero');
+  const video = hero.querySelector('video');
+  const pauseButton = document.getElementById('heroPause');
+  let heroVisible = true, wantsPlayback = !reduced.matches, overlayOpen = false, frame = 0;
+  video.controls = false;
+  pauseButton.hidden = false;
+
+  function refreshPlaybackButton() {
+    pauseButton.textContent = video.paused ? 'Lire le showreel' : 'Pause';
+    pauseButton.setAttribute('aria-label', video.paused ? 'Lire le showreel' : 'Mettre le showreel en pause');
+    hero.classList.toggle('is-paused', video.paused || !heroVisible || document.hidden || overlayOpen);
+  }
+  function updatePlayback() {
+    if (wantsPlayback && heroVisible && !document.hidden && !overlayOpen) {
+      const play = video.play();
+      if (play && typeof play.catch === 'function') play.catch(refreshPlaybackButton);
+    } else video.pause();
+    refreshPlaybackButton();
+  }
+  pauseButton.addEventListener('click', () => {
+    wantsPlayback = video.paused;
+    updatePlayback();
+  });
+  video.addEventListener('play', refreshPlaybackButton);
+  video.addEventListener('pause', refreshPlaybackButton);
+  video.addEventListener('error', () => {
+    wantsPlayback = false;
+    pauseButton.textContent = 'Vidéo indisponible';
+    pauseButton.disabled = true;
+  });
+
+  document.querySelectorAll('[data-scroll]').forEach(link => {
+    link.addEventListener('click', event => {
+      const target = document.getElementById(link.dataset.scroll);
+      if (!target) return;
+      event.preventDefault();
+      if (target === hero) window.scrollTo({top:0, behavior:reduced.matches ? 'auto' : 'smooth'});
+      else {
+        const scrollTarget = target;
+        const offset = document.querySelector('header').getBoundingClientRect().height + 16;
+        window.scrollTo({top:scrollTarget.getBoundingClientRect().top + window.scrollY - offset, behavior:reduced.matches ? 'auto' : 'smooth'});
+      }
+    });
+  });
+
+
+
+
+  const posterRow = document.querySelector('.film-posters');
+  const posterCards = Array.from(posterRow.querySelectorAll('.film-poster'));
+  let posterRowObserver, posterRowSeen = false;
+  posterCards.forEach((card,index) => card.style.setProperty('--poster-order',index));
+  function enterPoster(card) {
+    const img = card.querySelector('img');
+    function reveal() {
+      if (!reduced.matches && posterRow.classList.contains('is-shown')) {
+        card.classList.add('is-entering');
+      }
+    }
+    function ready() {
+      img.removeEventListener('load',ready);
+      img.removeEventListener('error',ready);
+      // Do not spend the slide animation on an empty frame while a photo downloads.
+      if (img.naturalWidth && typeof img.decode === 'function') {
+        img.decode().catch(() => {}).then(reveal);
+      } else reveal();
+    }
+    if (img.complete) ready();
+    else {
+      img.addEventListener('load',ready);
+      img.addEventListener('error',ready);
+    }
+  }
+  function setupPosterRow() {
+    if (posterRowObserver) posterRowObserver.disconnect();
+    posterRow.classList.remove('is-waiting');
+    if (reduced.matches || !('IntersectionObserver' in window) || posterRowSeen) {
+      posterRow.classList.remove('is-shown');
+      posterRowSeen = true;
+      return;
+    }
+    posterRow.classList.add('is-waiting');
+    posterRowObserver = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      posterRowSeen = true;
+      posterRow.classList.remove('is-waiting');
+      posterRow.classList.add('is-shown');
+      posterCards.forEach(enterPoster);
+      posterRowObserver.disconnect();
+    }, {threshold:0, rootMargin:'0px 0px -70px 0px'});
+    posterRowObserver.observe(posterRow);
+  }
+  setupPosterRow();
+  reduced.addEventListener('change',setupPosterRow);
+  posterRow.addEventListener('focusin', () => {
+    posterRowSeen = true;
+    posterRow.classList.remove('is-waiting','is-shown');
+    if (posterRowObserver) posterRowObserver.disconnect();
+  });
+
+  // One small appearance per image. No project pinning or height recalculation.
+  const items = Array.from(document.querySelectorAll('.screenshots-grid .media-frame, .photos-grid .media-frame, .makingof-grid .media-frame'));
+  let reveals;
+  function setupReveals() {
+    if (reveals) reveals.disconnect();
+    if (reduced.matches || !('IntersectionObserver' in window)) {
+      items.forEach(el => { el.classList.remove('is-waiting'); el.classList.add('quiet-reveal'); });
+      return;
+    }
+    reveals = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        el.classList.remove('is-waiting'); el.classList.add('is-shown');
+        reveals.unobserve(el);
+      });
+    }, {threshold:0, rootMargin:'0px 0px 30px 0px'});
+    items.forEach(el => {
+      el.classList.add('quiet-reveal');
+      // Visible images and focused buttons never disappear after a resize.
+      if (el.classList.contains('is-shown')) return;
+      if (el.getBoundingClientRect().top < window.innerHeight) return;
+      el.classList.add('is-waiting'); reveals.observe(el);
+    });
+  }
+  setupReveals();
+  items.forEach(el => el.addEventListener('focus', () => {
+    el.classList.remove('is-waiting');
+    if (reveals) reveals.unobserve(el);
+  }));
+  const clamp = value => Math.min(1, Math.max(0,value));
+  function updateDrift() {
+    frame = 0;
+    if (reduced.matches || document.hidden) return;
+    const heroProgress = clamp(window.scrollY / Math.max(1,hero.offsetHeight - window.innerHeight));
+    hero.style.setProperty('--hero-progress',heroProgress.toFixed(4));
+  }
+  function scheduleDrift() {
+    if (!frame && !reduced.matches && !document.hidden) frame = requestAnimationFrame(updateDrift);
+  }
+  scheduleDrift();
+  window.addEventListener('scroll', scheduleDrift, {passive:true});
+  window.addEventListener('resize', scheduleDrift, {passive:true});
+  if ('IntersectionObserver' in window) {
+    const heroObserver = new IntersectionObserver(entries => {
+      heroVisible = entries[0].isIntersecting;
+      updatePlayback(); scheduleDrift();
+    }, {threshold:0});
+    heroObserver.observe(hero);
+    const navigationObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const key = entry.target.id === 'top' || entry.target.id === 'contact' || entry.target.id === 'films' ? entry.target.id :
+          (['vision-d-hiver','vieux-jeu','laisse-couler','she-cut-a-rug','0-25mg','about-emma'].includes(entry.target.id) ? 'films' : 'le-roi-se-meurt');
+        document.querySelectorAll('nav [data-scroll]').forEach(link => {
+          if (link.dataset.scroll === key) link.setAttribute('aria-current','location');
+          else link.removeAttribute('aria-current');
+        });
+      });
+    }, {rootMargin:'-15% 0px -55% 0px', threshold:0});
+    document.querySelectorAll('.project, #top, #contact, main > section').forEach(el => navigationObserver.observe(el));
+  }
+  document.addEventListener('visibilitychange', () => { updatePlayback(); scheduleDrift(); });
+  reduced.addEventListener('change', () => {
+    wantsPlayback = !reduced.matches;
+    hero.style.removeProperty('--hero-progress');
+    setupReveals(); updatePlayback(); scheduleDrift();
+  });
+  updatePlayback();
+
+  const imgOverlay = document.getElementById('imageOverlay');
+  const overlayImg = document.getElementById('overlayImg');
+  const videoOverlay = document.getElementById('videoOverlay');
+  const videoFrame = document.getElementById('videoFrame');
+  const page = Array.from(document.body.children).filter(el => ![imgOverlay,videoOverlay].includes(el) && el.tagName !== 'SCRIPT');
+  let returnFocus, previousOverflow, inertStates = [];
+  function openOverlay(overlay) {
+    returnFocus = document.activeElement;
+    previousOverflow = document.body.style.overflow;
+    inertStates = page.map(el => el.inert);
+    page.forEach(el => { el.inert = true; });
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    overlayOpen = true; updatePlayback();
+    overlay.querySelector('.overlay-close').focus();
+  }
+  function closeAll() {
+    if (!overlayOpen) return;
+    imgOverlay.classList.remove('active'); overlayImg.removeAttribute('src');
+    videoOverlay.classList.remove('active'); videoFrame.removeAttribute('src');
+    page.forEach((el,i) => { el.inert = inertStates[i]; });
+    document.body.style.overflow = previousOverflow;
+    overlayOpen = false; updatePlayback();
+    if (returnFocus) returnFocus.focus({preventScroll:true});
+  }
+  [imgOverlay,videoOverlay].forEach(overlay => {
+    overlay.setAttribute('role','dialog');
+    overlay.setAttribute('aria-modal','true');
+    overlay.setAttribute('aria-label', overlay === imgOverlay ? 'Image agrandie' : 'Lecture vidéo');
+    overlay.addEventListener('click', event => {
+      if (event.target === overlay || event.target.closest('.overlay-close')) closeAll();
+    });
+    overlay.addEventListener('keydown', event => {
+      if (event.key === 'Tab' && overlay === imgOverlay) { event.preventDefault(); overlay.querySelector('.overlay-close').focus(); }
+    });
+  });
+  document.querySelectorAll('.media-frame').forEach((button,i) => {
+    const img = button.querySelector('img');
+    const project = button.closest('.project');
+    const label = project ? project.querySelector('.project-title').textContent.trim() : button.parentElement.previousElementSibling.textContent.trim();
+    button.setAttribute('aria-label', 'Agrandir : '+label+' — image '+(Array.from(button.parentElement.children).indexOf(button)+1));
+    button.addEventListener('click', () => { overlayImg.src = img.src; overlayImg.alt = img.alt || label; openOverlay(imgOverlay); });
+  });
+  videoFrame.title = 'Lecteur vidéo du projet';
+  document.querySelectorAll('.play-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const url = new URL(button.dataset.video, location.href);
+      url.searchParams.set('autoplay','1');
+      videoFrame.src = url.href; openOverlay(videoOverlay);
+    });
+  });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closeAll(); });
+})();
+
+</script>
+</body>
+</html>
